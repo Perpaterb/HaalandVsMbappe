@@ -1,0 +1,458 @@
+
+/*! @source http://purl.eligrey.com/github/classList.js/blob/master/classList.js
+;if("document" in self&&!("classList" in document.createElement("_"))){(function(j){"use strict";if(!("Element" in j)){return}var a="classList",f="prototype",m=j.Element[f],b=Object,k=String[f].trim||function(){return this.replace(/^\s+|\s+$/g,"")},c=Array[f].indexOf||function(q){var p=0,o=this.length;for(;p<o;p++){if(p in this&&this[p]===q){return p}}return -1},n=function(o,p){this.name=o;this.code=DOMException[o];this.message=p},g=function(p,o){if(o===""){throw new n("SYNTAX_ERR","An invalid or illegal string was specified")}if(/\s/.test(o)){throw new n("INVALID_CHARACTER_ERR","String contains an invalid character")}return c.call(p,o)},d=function(s){var r=k.call(s.getAttribute("class")||""),q=r?r.split(/\s+/):[],p=0,o=q.length;for(;p<o;p++){this.push(q[p])}this._updateClassName=function(){s.setAttribute("class",this.toString())}},e=d[f]=[],i=function(){return new d(this)};n[f]=Error[f];e.item=function(o){return this[o]||null};e.contains=function(o){o+="";return g(this,o)!==-1};e.add=function(){var s=arguments,r=0,p=s.length,q,o=false;do{q=s[r]+"";if(g(this,q)===-1){this.push(q);o=true}}while(++r<p);if(o){this._updateClassName()}};e.remove=function(){var t=arguments,s=0,p=t.length,r,o=false;do{r=t[s]+"";var q=g(this,r);if(q!==-1){this.splice(q,1);o=true}}while(++s<p);if(o){this._updateClassName()}};e.toggle=function(p,q){p+="";var o=this.contains(p),r=o?q!==true&&"remove":q!==false&&"add";if(r){this[r](p)}return !o};e.toString=function(){return this.join(" ")};if(b.defineProperty){var l={get:i,enumerable:true,configurable:true};try{b.defineProperty(m,a,l)}catch(h){if(h.number===-2146823252){l.enumerable=false;b.defineProperty(m,a,l)}}}else{if(b[f].__defineGetter__){m.__defineGetter__(a,i)}}}(self))};
+*/
+
+/* author: Fabio Miranda Costa | github: fabiomcosta | twitter: @fabiomiranda | license: MIT-style license */
+(function(h,i){var f,c,j,k,m={},e,l,q=/^\s+|\s+$/g,r=!!i.querySelectorAll,g=function(d,b,a){f=a||[];e=b||g.context;if(r)try{n(e.querySelectorAll(d));return f}catch(v){}l=e.ownerDocument||e;d=d.replace(q,"");for(c={};d=d.replace(/([#.:])?([^#.:]*)/,s););d=(b=c.id)&&c.tag||c.classes||c.pseudos||!b&&(c.classes||c.pseudos)?t:o;if(b){if(a=b=l.getElementById(b))if(!(a=l===e))a:{a=b;do if(a===e){a=true;break a}while(a=a.parentNode);a=false}a&&d([b])}else d(e.getElementsByTagName(c.tag||"*"));return f},u=
+function(d){if(c.tag){var b=d.nodeName.toUpperCase();if(c.tag=="*"){if(b<"@")return false}else if(b!=c.tag)return false}if(c.id&&d.getAttribute("id")!=c.id)return false;if(j=c.classes){var a=" "+d.className+" ";for(b=j.length;b--;)if(a.indexOf(" "+j[b]+" ")<0)return false}if(k=c.pseudos)for(b=k.length;b--;){a=m[k[b]];if(!(a&&a.call(g,d)))return false}return true},s=function(d,b,a){if(b)if(b=="#")c.id=a;else if(b==".")if(c.classes)c.classes.push(a);else c.classes=[a];else{if(b==":")if(c.pseudos)c.pseudos.push(a);
+else c.pseudos=[a]}else c.tag=a.toUpperCase();return""},p=Array.prototype.slice,n=function(d){f=p.call(d,0)},o=function(d){for(var b=0,a;a=d[b++];)f.push(a)};try{p.call(i.documentElement.childNodes,0)}catch(w){n=o}var t=function(d){for(var b=0,a;a=d[b++];)u(a)&&f.push(a)};g.pseudos=m;g.context=i;h.uSelector=g;h.$u||(h.$u=g)})(this,document);
+
+
+
+/**
+ * Handle widget behaviors.
+ */
+var TvmWidget = function(conf) {
+
+  'use strict';
+
+  this.matches = {};
+
+  this.conf = conf;
+
+  this.pauseAnimations = false;
+
+  this.element = conf.element;
+
+  //this.getWidth(); // <- It's worth calling this early to minimize reflows.
+
+  //this.element.classList.add("js");
+};
+
+/**
+ * Class variable for defining a widget variant.
+ */
+TvmWidget.variant = {};
+
+/**
+ * Cross-browser convenience function: Check if a value is present in an array.
+ */
+TvmWidget.inArray = function(needle, haystack) {
+  var i;
+
+  for (i in haystack) {
+    if (haystack[i] == needle) return true;
+  }
+  return false;
+};
+
+/**
+ * Cross-browser version of previousElementSibling().
+TvmWidget.previousElementSibling = function(el) {
+  if (el.previousElementSibling) {
+      return el.previousElementSibling;
+  }
+  else {
+    while (!!(el = el.previousSibling)) {
+      if (el.nodeType === 1) return el;
+    }
+  }
+};
+
+/**
+ * Load the widget.
+ */
+TvmWidget.prototype.load = function() {
+  var i, match;
+	//matchItems = $u(".match", this.element);
+
+  this.callVariantHook("widgetInit", this);
+
+/*  for (i in matchItems) {
+    match = {
+      element: matchItems[i]
+    };
+    this.callVariantHook("matchLoaded", match);
+    this.matches[matchItems[i].getAttribute("data-match-id")] = match;
+  }
+*/
+
+  if (this.conf.autoscroll) {
+    this.startScroller();
+  }
+  this.attachEvents();
+  //this.detectOverflowMatches();
+  //this.hoverScroller();
+
+  this.callVariantHook("widgetLoaded", this);
+};
+
+/**
+ * Call a hook function on the variant.
+ */
+TvmWidget.prototype.callVariantHook = function(funcName, arg) {
+  if (typeof TvmWidget.variant[funcName] == "function") {
+    TvmWidget.variant[funcName](arg);
+  }
+};
+
+/**
+ * Set document width class on the html element and run through matches
+ */
+/*TvmWidget.prototype.getWidth = function getWidth() {
+  // Set width based classes (controlled by parent iframe).
+  // (Avoiding media queries for backwards compatibility.)
+  switch (true) {
+    case this.element.clientWidth < 340:
+      this.element.classList.add("width-narrow");
+      break;
+    case this.element.clientWidth < 480 && this.element.clientWidth > 320:
+      this.element.classList.add("width-middle");
+      break;
+    default:
+      this.element.classList.add("width-wide");
+  }
+};
+/**
+ * Get style property of an element.
+TvmWidget.prototype.getStyle = function(el, styleProp) {
+  if (el.currentStyle) {
+    return el.currentStyle[styleProp];
+  }
+  if (window.getComputedStyle) {
+    return document.defaultView.getComputedStyle(el,null).getPropertyValue(styleProp);
+  }
+};
+
+/**
+ * Get a working event object in all browsers.
+ */
+TvmWidget.prototype.getEvent = function(e) {
+  // If "e" is undefined (IE) use the global "event" variable.
+  return e || event;
+};
+
+/**
+ * Get event target in a cross-browser compatible way.
+ */
+TvmWidget.prototype.getTarget = function(e) {
+  return e.srcElement || e.target;
+};
+
+/**
+ * Setup the page scrolling behavior.
+ */
+TvmWidget.prototype.startScroller = function startScroller() {
+  var self = this,
+      matchList = $u("#content")[0],
+      framerate = 40,
+      docHeight,
+      winHeight,
+      heightDiff,
+      scrollTop,
+      downDelta,
+      upDelta,
+      delta,
+      scrollBy,
+      easingSine,
+      progress = 0, // Keep track of animation progress.
+      scrollWindow,
+      pageAddress = window.location.href;
+
+  // Get document and window height in a cross-browser compatible way.
+  docHeight = matchList.scrollHeight;
+  winHeight = matchList.offsetHeight;
+  heightDiff = docHeight - winHeight;
+
+  downDelta = 1;
+  upDelta = -5 - heightDiff / 40;
+
+  delta = downDelta;
+
+  // Sine animation easing: calculate a number between 0 an 1 depending on the input
+  easingSine = function(position) {
+    return (-Math.cos(position * Math.PI) / 2) + 0.5;
+  };
+
+  // Update the scroll state for each tick.
+  scrollWindow = function() {
+    scrollTop = matchList.scrollTop;
+
+    if (!self.pauseAnimations) {
+      if (delta > 0) {
+        // Scroll down slowly.
+        scrollBy = delta;
+        if (heightDiff - scrollTop < 0) {
+          // Close to bottom, make sure we get to the exact bottom.
+          scrollBy = scrollTop - heightDiff;
+        }
+      }
+      else {
+        // Scroll up quickly with easing.
+        progress += delta;
+        scrollBy = easingSine((heightDiff - progress) / heightDiff) * heightDiff - scrollTop;
+        if (scrollTop + scrollBy < 5) {
+          // Close to top, make sure we get to the exact top.
+          scrollBy = 0 - scrollTop;
+        }
+      }
+
+      // Scroll the page.
+//      y = matchList.scrollTop();
+  //    y += scrollBy;
+      matchList.scrollTop += scrollBy; //(y);
+    }
+
+    if (scrollTop + scrollBy === 0) {
+      // Page is at top. Reset, pause and scroll down.
+      progress = 0;
+      setTimeout(function() {
+        delta = downDelta;
+        scrollWindow();
+      }, 3000);
+    }
+    else if (winHeight + scrollTop + scrollBy >= docHeight) {
+      // Page is at bottom. Pause and scroll up.
+      setTimeout(function() {
+        delta = upDelta;
+        scrollWindow();
+      }, 2000);
+    }
+    else {
+      // Jump to the next tick.
+      setTimeout(scrollWindow, framerate);
+    }
+  };
+
+  // Only scroll if document is taller than the window.
+  if (heightDiff > 0) {
+    // Make a pause before starting the scroll for the first time.
+    setTimeout(function() {
+      scrollWindow();
+    }, 2000);
+  }
+};
+
+/**
+ * Attach event listeners.
+ */
+TvmWidget.prototype.attachEvents = function attachEvents() {
+  var self = this;
+
+  var cont = document.getElementById("content");
+  // Pause animations when hovering over matches.
+  if (this.conf.autoscroll) {
+    cont.addEventListener('mouseover', function() {
+      self.pauseAnimations = true;
+    });
+    
+    cont.addEventListener('mouseout', function() {
+      self.pauseAnimations = false;
+    });
+  }
+
+  // Make the whole widget clickable.
+/*  if (self.conf.linkURL) {
+    self.element.onclick = function(e) {
+      var clicked,
+          link;
+
+      e = self.getEvent(e);
+      clicked = self.getTarget(e);
+      if (clicked.nodeName.toUpperCase() != "A" && clicked.parentElement.nodeName.toUpperCase() != "A") { // Don't mess with link clicks.
+        // Open home page in new window.
+        window.open(self.conf.linkURL, "TVmatchen");
+      }
+    };
+  }*/
+};
+
+/**
+ * Detect matches that have overflowing texts.
+
+TvmWidget.prototype.detectOverflowMatches = function detectOverflowMatches() {
+  var id,
+      match,
+      heading,
+      headingWidth,
+      headingSpanWidth,
+      league,
+      leagueWidth,
+      leagueSpanWidth;
+
+  // Run through all matches and give select ones the textScrollOverflow class
+  for (id in this.matches) {
+    match = this.matches[id];
+
+    match.overflow = false;
+
+    // Calculate widths
+    heading = $u('h3', match.element)[0];
+    headingWidth = heading.offsetWidth - parseInt(this.getStyle(heading, 'padding-left'));
+    headingSpanWidth = $u('span', heading)[0].offsetWidth;
+    league = $u('.league', match.element)[0];
+    leagueWidth = league.offsetWidth - parseInt(this.getStyle(league, 'padding-left')) - parseInt(this.getStyle(league, 'padding-right'));
+    leagueSpanWidth = $u('span', league)[0].offsetWidth;
+
+    // If there is more text to show, add textScrollOverflow class
+    if (headingSpanWidth > headingWidth || leagueSpanWidth > leagueWidth) {
+      match.element.classList.add('textScrollOverflow');
+      match.overflow = true;
+
+      // Save the match widths for later.
+      match.headingWidth = headingWidth;
+      match.headingSpanWidth = headingSpanWidth;
+      match.leagueWidth = leagueWidth;
+      match.leagueSpanWidth = leagueSpanWidth;
+    }
+
+  }
+};
+*/
+
+/**
+ * Setup the title hover scrolling behavior
+ */
+TvmWidget.prototype.hoverScroller = function hoverScroller() {
+  var self = this,
+      matchMemory;
+
+  // Reset the text indents
+/*  var returnToZero = function () {
+    $u('h3', matchMemory)[0].style.textIndent = 0;
+    $u('.league', matchMemory)[0].style.textIndent = 0;
+  };
+*/
+  // Track mouse movements and respond by scrolling long text rows.
+  this.element.onmousemove = function(e) {
+      var element,
+          matchId,
+          heading,
+          headingWidth,
+          headingSpanWidth,
+          league,
+          leagueWidth,
+          leagueSpanWidth,
+          calculateIndent,
+          percentage;
+
+    e = self.getEvent(e);
+    var target = self.getTarget(e);
+
+    if (target.className.match(/matchLink/i)) {
+      element = target.parentNode;
+
+      heading = $u('h3', element)[0];
+      league = $u('.league', element)[0];
+
+      matchId = element.getAttribute("data-match-id");
+
+      if (self.matches[matchId].overflow) {
+        headingWidth = self.matches[matchId].headingWidth;
+        headingSpanWidth = self.matches[matchId].headingSpanWidth;
+        leagueWidth = self.matches[matchId].leagueWidth;
+        leagueSpanWidth = self.matches[matchId].leagueSpanWidth;
+
+        // If there's more text to show
+        if (headingSpanWidth > headingWidth) {
+          percentage = (e.pageX > heading.offsetLeft) ? ((e.pageX-heading.offsetLeft)/heading.offsetWidth) : 0; // If mouse position x is larger than element offset left, start calculating
+          percentage = (percentage <= 1) ? percentage : 1; // Prevent the percentage exceeding 100 %
+          calculateIndent = (headingSpanWidth - headingWidth) * percentage; // Calculate width of text, multiply with percentage to get what to show
+
+          heading.style.textIndent = -calculateIndent + 'px';
+        }
+
+        // Comments to this one applies to the one above
+        if (leagueSpanWidth > leagueWidth) {
+          percentage = (e.pageX > league.offsetLeft) ? ((e.pageX-league.offsetLeft)/league.offsetWidth) : 0;
+          percentage = (percentage <= 1) ? percentage : 1;
+          calculateIndent = (leagueSpanWidth - leagueWidth) * percentage;
+
+          league.style.textIndent = -calculateIndent + 'px';
+        }
+      }
+
+      // If element this isn't the same as the one in memory
+      if (matchMemory && matchMemory != element) {
+        returnToZero(); // Reset text indent
+      } matchMemory = element;
+    }
+  };
+};
+
+
+is_mobile_phone = false;
+
+if (/Android|webOS|iPhone|iPod|BlackBerry|BB|IEMobile|Windows Phone|Opera Mini/i.test(navigator.userAgent)) {
+	is_mobile_phone = true;
+}
+
+
+if(typeof widget_options != 'undefined') {
+	for (var attrname in widget_options) { wopts[attrname] = widget_options[attrname]; }
+}
+// @matchurl @matchlink
+var matches = document.querySelectorAll('li.match');
+
+for(var i=0; i < matches.length; i++) {
+	matches[i].addEventListener('click', matchesListener);	
+}
+
+var forcelinkAnchors = document.querySelectorAll('a.channel.do-link');
+
+for(var i=0; i < forcelinkAnchors.length; i++) {
+	forcelinkAnchors[i].addEventListener('click', forcelinkListener);	
+}
+
+function forcelinkListener(e) {
+	if(!is_mobile_phone) {
+		e.stopPropagation();
+	}else{
+		e.preventDefault();
+	}
+}
+
+function matchesListener(e) {
+
+	data_url = this.getAttribute('data-url');
+	
+	if(data_url) {
+		window.open(data_url);
+		return;
+	}
+
+	// skipping anchors for desktop and li without data-match attribute.
+	if(!this.getAttribute('data-match')) {
+		return;		
+	}else{
+		e.preventDefault();
+		// do mobile magic?
+		/*if(wsp_ad != null) {
+			wsp_ad.remove();
+		}*/
+
+		match_id = this.getAttribute('data-match');
+		matchurl = ajax.match_url+'/'+match_id+'/';
+		var url = window.location.pathname;
+		var widget_id = url.substring(url.lastIndexOf('/')+1);
+
+		try {
+			ga('send', {
+			 hitType: 'event',
+			 eventCategory: 'Widget',
+			 eventAction: 'click',
+			 eventLabel: matchurl,
+			 eventValue: match_id //widget_id
+			});
+		} catch (e) {
+			console.log('widget is missing google analytics');
+		}
+		
+
+		// if is widget open in new window (should do this with other links too?)
+		window.open(matchurl);
+	}
+	return false;
+};
+

@@ -1,0 +1,485 @@
+/*------------------------------------------------------------------
+[Home styles]
+-------------------------------------------------------------------*/
+/*------------------------------------------------------------------
+Filters
+-------------------------------------------------------------------*/
+.filter-block .filter-block-inner {
+  background: #001428; }
+  .filter-block .filter-block-inner .filter_row {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2); }
+  .filter-block .filter-block-inner .filter_block_aside {
+    flex: 0 0 115px;
+    max-width: 115px;
+    border-right: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 8px; }
+    .filter-block .filter-block-inner .filter_block_aside h4 {
+      font-size: 14px;
+      line-height: 1.71;
+      color: #0092d0;
+      font-weight: normal; }
+      .filter-block .filter-block-inner .filter_block_aside h4 .icn {
+        font-size: 16px; }
+      .filter-block .filter-block-inner .filter_block_aside h4 a {
+        color: #0092d0;
+        white-space: nowrap; }
+        .filter-block .filter-block-inner .filter_block_aside h4 a:hover {
+          color: #28bfff;
+          text-decoration: none; }
+          .filter-block .filter-block-inner .filter_block_aside h4 a:hover span {
+            text-decoration: none; }
+  .filter-block .filter-block-inner .filter_block_cont {
+    flex-grow: 1;
+    max-width: 100%;
+    flex-basis: 0;
+    width: 100%;
+    padding: 0 7px; }
+  .filter-block .filter-block-inner .filter_block_func_list li > span, .filter-block .filter-block-inner .filter_block_func_list li > a {
+    cursor: pointer;
+    color: rgba(255, 255, 255, 0.5); }
+    .filter-block .filter-block-inner .filter_block_func_list li > span:hover, .filter-block .filter-block-inner .filter_block_func_list li > a:hover {
+      text-decoration: none;
+      color: #0092d0; }
+    .filter-block .filter-block-inner .filter_block_func_list li > span i, .filter-block .filter-block-inner .filter_block_func_list li > a i {
+      font-size: 9px; }
+    .filter-block .filter-block-inner .filter_block_func_list li > span span, .filter-block .filter-block-inner .filter_block_func_list li > a span {
+      font-size: 11px;
+      line-height: 1.09; }
+
+.filter-block.sticky .filter-block-inner {
+  position: fixed;
+  width: 100%;
+  height: 43px;
+  overflow: visible;
+  top: 0;
+  left: 0;
+  box-shadow: 0px 2px 5px 2px rgba(0, 0, 0, 0.25);
+  z-index: 501; }
+  .filter-block.sticky .filter-block-inner .filter_block_cont {
+    display: none; }
+
+body.admin-bar .filter-block.sticky .filter-block-inner {
+  top: 32px; }
+
+.list_checkbox_panel li {
+  flex: 0 0 20%;
+  max-width: 20%;
+  text-align: center;
+  padding: 4px;
+  user-select: none; }
+  @media (min-width: 992px) {
+    .list_checkbox_panel li {
+      flex: 0 0 10%;
+      max-width: 10%;
+      padding: 4px 7px; } }
+  .list_checkbox_panel li .icn {
+    font-size: 16px;
+    color: #fff;
+    padding-bottom: 4px; }
+  .list_checkbox_panel li span {
+    font-size: 12px;
+    line-height: 1;
+    color: #fff; }
+    @media (min-width: 992px) {
+      .list_checkbox_panel li span {
+        padding-top: 0; } }
+
+.list_checkbox_panel.no_checks .checkbox_panel [type="checkbox"]:not(:checked) + label:after,
+.list_checkbox_panel.no_checks .checkbox_panel [type="checkbox"]:checked + label:after,
+.list_checkbox_panel.no_checks .checkbox_panel [type="checkbox"]:not(:checked) + label:before,
+.list_checkbox_panel.no_checks .checkbox_panel [type="checkbox"]:checked + label:before {
+  content: none; }
+
+@media (max-width: 575.98px) {
+  .list_checkbox_panel.list_checkbox_in_header li {
+    flex: 0 0 25%;
+    max-width: 25%; } }
+
+@media screen and (max-width: 450px) {
+  .list_checkbox_panel.list_checkbox_in_header li {
+    flex: 0 0 33.333%;
+    max-width: 33.333%; } }
+
+.list_checkbox_panel.primary_check .checkbox_panel [type="checkbox"]:not(:checked) + label {
+  background: theme-color("primary"); }
+
+.list_checkbox_panel.primary_check .checkbox_panel [type="checkbox"]:checked + label i, .list_checkbox_panel.primary_check .checkbox_panel [type="checkbox"]:checked + label span {
+  opacity: .4; }
+
+.filter_day_list {
+  margin-left: -8px; }
+  .filter_day_list li {
+    margin: 0 8px 3px 8px; }
+    .filter_day_list li > span {
+      height: 40px;
+      width: 40px;
+      flex: 0 0 40px;
+      display: flex;
+      flex-direction: column;
+      transition: background 0.1s ease; }
+    .filter_day_list li:not(.empty-date) > span {
+      cursor: pointer; }
+    .filter_day_list li:not(.empty-date):hover > span {
+      background: #0092d0;
+      text-decoration: none;
+      transition: background 0.3s ease; }
+    .filter_day_list li strong {
+      font-size: 14px;
+      line-height: 1.5;
+      font-weight: 500;
+      color: #fff; }
+    .filter_day_list li span {
+      font-size: 10px;
+      line-height: 1;
+      color: #fff; }
+    .filter_day_list li.active > span {
+      background: #0092d0; }
+    .filter_day_list li.past-day {
+      opacity: 0.6; }
+    .filter_day_list li.empty-date {
+      opacity: 0.3; }
+
+.col_fixed_aside {
+  flex: 0 0 266px;
+  max-width: 266px; }
+
+#tvm-calendar {
+  display: none;
+  position: absolute;
+  left: -8px;
+  top: 9px;
+  width: 250px;
+  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);
+  color: #fff; }
+  #tvm-calendar .ui-datepicker {
+    background: #001428;
+    width: 100%;
+    padding-bottom: 1px;
+    font-size: 14px;
+    display: none; }
+  #tvm-calendar .ui-datepicker .ui-datepicker-header {
+    position: relative;
+    padding: 5px;
+    background: rgba(255, 255, 255, 0.2); }
+  #tvm-calendar a {
+    color: #fff; }
+    #tvm-calendar a:hover {
+      text-decoration: none; }
+  #tvm-calendar .ui-datepicker .ui-datepicker-prev, #tvm-calendar .ui-datepicker .ui-datepicker-next {
+    cursor: pointer; }
+  #tvm-calendar .ui-datepicker-yesterday {
+    opacity: 0.5; }
+
+/*------------------------------------------------------------------
+Before matches
+-------------------------------------------------------------------*/
+.before-matches .widget {
+  background: #fff;
+  clear: both;
+  text-align: center; }
+
+.before-matches .widget-title {
+  color: #0092d0;
+  margin: 0 10px;
+  padding: 5px 10px;
+  border-bottom: 1px solid #0092d0; }
+
+@media (min-width: 768px) {
+  .before-matches > div:not(:empty), .before-matches > section:not(:empty) {
+    margin-bottom: 1rem; } }
+
+.before-matches .partners-section > div {
+  display: flex; }
+
+.before-matches .partners-section .ad {
+  display: flex; }
+
+.before-matches img {
+  max-width: 100%; }
+
+/*------------------------------------------------------------------
+Match list
+-------------------------------------------------------------------*/
+.match-container {
+  opacity: 0; }
+  .match-container .day {
+    margin-bottom: 1rem;
+    background-color: #fff; }
+    .match-container .day .day-title {
+      text-align: center;
+      border-bottom: 1px solid #eee;
+      position: relative; }
+      .match-container .day .day-title .day-date {
+        background: #424242;
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 32px;
+        color: #fff;
+        display: block;
+        padding: 0 16px;
+        position: absolute;
+        top: 0;
+        left: 0; }
+      .match-container .day .day-title h2 {
+        font-size: 14px;
+        line-height: 32px;
+        color: #222;
+        font-weight: normal;
+        flex-grow: 1;
+        max-width: 100%;
+        flex-basis: 0;
+        width: 100%;
+        margin: 0; }
+    .match-container .day.past-day {
+      display: none; }
+      .match-container .day.past-day .match-list {
+        opacity: 0.5; }
+    .match-container .day .earlier-divider {
+      color: #0092d0;
+      border-bottom: 1px solid #ddd;
+      cursor: pointer;
+      font-size: 12px;
+      line-height: 32px;
+      text-align: center; }
+    .match-container .day .match-list > div {
+      position: relative;
+      border-bottom: 1px solid #eee;
+      display: flex;
+      flex-wrap: wrap; }
+      .match-container .day .match-list > div > a {
+        position: absolute;
+        display: block;
+        width: 100%;
+        height: 100%;
+        z-index: 10; }
+        .match-container .day .match-list > div > a.post-edit-link {
+          width: 30px;
+          height: 20px;
+          text-align: center;
+          display: none; }
+      .match-container .day .match-list > div > div a {
+        position: relative;
+        z-index: 15; }
+      .match-container .day .match-list > div.b4 {
+        opacity: 0.5; }
+      .match-container .day .match-list > div .match-info {
+        padding: 8px 8px 8px 16px;
+        max-width: 55px;
+        flex: 0 0 55px;
+        display: flex;
+        flex-wrap: nowrap;
+        text-align: center;
+        flex-direction: column;
+        align-items: center; }
+        @media (min-width: 576px) {
+          .match-container .day .match-list > div .match-info {
+            flex: 0 0 100px;
+            max-width: 100px;
+            text-align: left;
+            flex-direction: row; } }
+        .match-container .day .match-list > div .match-info > div {
+          flex: 0 0 50%; }
+        .match-container .day .match-list > div .match-info .match-time {
+          order: -1;
+          color: #222;
+          font-size: 12px;
+          line-height: 1.1;
+          display: block;
+          flex: 0 0 16px; }
+          @media (min-width: 576px) {
+            .match-container .day .match-list > div .match-info .match-time {
+              flex: 0 0 50%;
+              order: 13;
+              font-size: 14px;
+              line-height: 2;
+              height: auto; } }
+        .match-container .day .match-list > div .match-info .icn {
+          font-size: 24px;
+          padding-top: 2px; }
+      .match-container .day .match-list > div .match-detail {
+        padding: 7px 16px 7px 8px;
+        flex-basis: 0;
+        flex-grow: 1;
+        max-width: 100%;
+        display: flex;
+        flex-wrap: wrap; }
+        @media (min-width: 576px) {
+          .match-container .day .match-list > div .match-detail {
+            flex-wrap: nowrap; } }
+        .match-container .day .match-list > div .match-detail > div {
+          flex: 0 0 100%;
+          max-width: 100%;
+          padding-right: 25px;
+          flex-wrap: wrap;
+          display: flex; }
+          @media (min-width: 576px) {
+            .match-container .day .match-list > div .match-detail > div {
+              flex: 1 1 auto;
+              padding-right: 0; } }
+          .match-container .day .match-list > div .match-detail > div span, .match-container .day .match-list > div .match-detail > div strong {
+            font-size: 12px;
+            line-height: 1.1;
+            color: rgba(34, 34, 34, 0.5); }
+          .match-container .day .match-list > div .match-detail > div strong {
+            font-weight: 500; }
+        .match-container .day .match-list > div .match-detail ul.match-channels {
+          padding: 8px 0 0 0;
+          margin: 0 -4px;
+          list-style: none;
+          display: flex;
+          justify-content: flex-end; }
+          @media (min-width: 576px) {
+            .match-container .day .match-list > div .match-detail ul.match-channels {
+              padding: 0; } }
+          .match-container .day .match-list > div .match-detail ul.match-channels .tv-icon {
+            display: block; }
+          .match-container .day .match-list > div .match-detail ul.match-channels li {
+            padding: 0 4px;
+            /*							&.partner-icon{
+								@include media-breakpoint-up(sm) {
+									position: relative;
+									padding-left: 5px;
+								}
+								img {
+									display: none;
+									@include media-breakpoint-up(sm) {
+										display: block;
+									}
+								}
+								&:before{
+									content: '';
+									width: 1px;
+									height: 31px;
+									position: absolute;
+									top: 0;
+									left: 0;
+									background: #999;
+								}
+							}*/ }
+          .match-container .day .match-list > div .match-detail ul.match-channels a {
+            display: block; }
+            .match-container .day .match-list > div .match-detail ul.match-channels a img {
+              border-color: #0092d0; }
+            .match-container .day .match-list > div .match-detail ul.match-channels a:hover {
+              box-shadow: 0 0 2px 0 #0092d0; }
+          .match-container .day .match-list > div .match-detail ul.match-channels img {
+            width: 50px;
+            display: block;
+            height: auto;
+            border: 1px solid #eeeeee; }
+        .match-container .day .match-list > div .match-detail .dot {
+          width: 6px;
+          height: 6px;
+          border-radius: 50%;
+          display: inline-block;
+          margin-top: 2px;
+          margin-bottom: 2px; }
+      .match-container .day .match-list > div > i {
+        position: absolute;
+        right: 3px;
+        top: 50%;
+        transform: translate(0, -50%);
+        display: none;
+        width: 12px;
+        height: 12px;
+        color: #6E6E6E;
+        font-size: 12px; }
+      .match-container .day .match-list > div.active, .match-container .day .match-list > div:hover {
+        background: #eef8fc;
+        transition: background 0.3s ease; }
+        .match-container .day .match-list > div.active > i, .match-container .day .match-list > div:hover > i {
+          display: block; }
+        .match-container .day .match-list > div.active > a.post-edit-link, .match-container .day .match-list > div:hover > a.post-edit-link {
+          display: block;
+          color: #fff;
+          text-decoration: none; }
+      @media (max-width: 767.98px) {
+        .match-container .day .match-list > div {
+          border-bottom: 4px solid #eee; } }
+      .match-container .day .match-list > div h3 {
+        font-size: 12px;
+        line-height: 1.1;
+        color: #222;
+        font-weight: 500;
+        padding-right: 0.25rem;
+        margin: 0; }
+        .match-container .day .match-list > div h3 a {
+          color: #222; }
+          .match-container .day .match-list > div h3 a:hover {
+            text-decoration: underline; }
+      .match-container .day .match-list > div p {
+        font-size: 12px;
+        line-height: 1.1;
+        color: rgba(34, 34, 34, 0.5);
+        padding-top: 0.25rem;
+        margin: 0;
+        flex: 0 0 100%;
+        max-width: 100%; }
+        .match-container .day .match-list > div p a {
+          color: rgba(34, 34, 34, 0.5); }
+          .match-container .day .match-list > div p a:hover {
+            text-decoration: none;
+            text-shadow: 0px 0px 1px #ddd; }
+        .match-container .day .match-list > div p .odds {
+          color: #0092d0;
+          white-space: nowrap; }
+          .match-container .day .match-list > div p .odds:hover {
+            text-decoration: none;
+            text-shadow: 0px 0px 1px #ccc; }
+          .match-container .day .match-list > div p .odds span {
+            color: #0092d0; }
+        .match-container .day .match-list > div p .mobile-odds-partner-link {
+          position: absolute;
+          top: 8px;
+          right: 24px;
+          border: none; }
+          .match-container .day .match-list > div p .mobile-odds-partner-link img {
+            display: block;
+            width: 16px;
+            border-color: transparent; }
+      .match-container .day .match-list > div.home-country h3:before {
+        content: "";
+        display: inline-block;
+        vertical-align: middle;
+        width: 20px;
+        height: 14px;
+        margin-right: 4px;
+        /* background-image: url  in Fronpage controller 'home-country' inline css output current country flag img */
+        background-size: contain;
+        background-repeat: no-repeat; }
+    .match-container .day .match-list .no-tv, .match-container .day .match-list .tv-off {
+      display: none !important; }
+
+/*------------------------------------------------------------------
+After matches
+-------------------------------------------------------------------*/
+@media (min-width: 768px) {
+  .after-matches > div:not(:empty), .after-matches > section:not(:empty) {
+    margin-bottom: 1rem; } }
+
+.after-matches img {
+  max-width: 100%; }
+
+.tab_content_holder {
+  border-top: 2px solid #eee; }
+
+.custom_tabset .nav-item {
+  border-right: 1px solid #eee; }
+  .custom_tabset .nav-item:last-child {
+    border-right: 0; }
+
+.custom_tabset .dropdown_more {
+  flex: 0 0 40px;
+  max-width: 40px; }
+  .custom_tabset .dropdown_more .icn {
+    color: #888;
+    font-size: 20px;
+    text-align: center; }
+  .custom_tabset .dropdown_more.show i {
+    color: #fff; }
+
+.grecaptcha-badge {
+  display: none; }
+
+
+/*# sourceMappingURL=home.css.map*/

@@ -1,0 +1,146 @@
+body {
+  background: #fff !important;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-weight: 400;
+  font-size: 13pt;
+  color: #000;
+  overflow-x: hidden;
+  text-rendering: optimizeLegibility !important;
+  position: relative;
+  margin: 0;
+  padding: 1px 0; }
+  body a, body a:not(.btn) {
+    color: #333;
+    text-decoration: none !important;
+    font-size: 14pt; }
+  body .match-container .day .match-list > div h3 {
+    font-size: 15pt; }
+  body .match-container .day .day-title h2,
+  body .match-container .day .match-list > div .match-info .match-time {
+    font-size: 14pt; }
+  body .tv-channels li.tv .channel-name {
+    font-size: 14pt; }
+  body .title-area .league-desc,
+  body .title-area .league-desc a {
+    font-size: 14pt;
+    color: #222; }
+
+#tvm-toolbar,
+#menu-topnavigation-tvm,
+#matches-adzone,
+#panorama,
+#right-adzone,
+#left-adzone,
+#triangel_ad,
+#sidebar-primary,
+#before-footer,
+#footer,
+.nav-link_text,
+.right-header,
+.primary-menu,
+aside.before-matches,
+.adzone,
+.ad,
+.match-ad,
+.filter-block,
+.breadcrumbs,
+#earlier-divider,
+#cookie_prompt,
+#headwidget,
+.textwidget,
+.noprint,
+.no-print,
+.follow-us,
+.hidden,
+.filter-days-mobile-block,
+#GenecyDFPAdWallpaperCont,
+li.match .odds,
+li.match i.odds-mark,
+li.got-play i.vid,
+.author-title,
+.fb-like,
+.article-footer {
+  display: none !important; }
+
+.tv-icon, .tv-img {
+  width: 50px;
+  height: 30px; }
+
+.tv-icon,
+.sicon,
+.header,
+li.hc {
+  -webkit-print-color-adjust: exact; }
+
+hr {
+  height: 1px;
+  background: #ddd;
+  margin: 1em 0;
+  border: 0; }
+
+#content {
+  float: none;
+  clear: both; }
+
+.header {
+  border-bottom: 0 none;
+  background-color: #151515;
+  height: auto;
+  padding: 0;
+  margin: 0;
+  float: none;
+  margin-bottom: 10px;
+  text-align: left;
+  repeat-on-break: none; }
+  .header .etc_nav .nav-item {
+    height: 50px; }
+  .header .navbar-brand {
+    display: block;
+    float: none;
+    width: 100%;
+    height: auto;
+    margin: 0; }
+    .header .navbar-brand img {
+      height: 30px; }
+
+.folded {
+  max-height: 100px;
+  overflow: visible; }
+
+body.single-post ul.post-categories a {
+  color: #000; }
+
+body.single-post .post-meta .entry-date {
+  color: #000; }
+
+.match-list.event_list__js > div {
+  page-break-after: auto;
+  page-break-inside: avoid; }
+
+.sicon {
+  position: relative;
+  top: 0;
+  left: 0;
+  float: left;
+  margin: 0 6px 0 4px; }
+
+.day .date-month {
+  background: none;
+  color: #000; }
+
+.match-container .day .match-list > div p,
+.match-container .day .match-list > div p a {
+  color: #555; }
+
+@page {
+  margin: 20mm; }
+
+.centered_wrapper {
+  max-width: fit-content;
+  margin: 0 auto; }
+
+.match-container {
+  opacity: 1 !important; }
+
+
+/*# sourceMappingURL=print.css.map*/
